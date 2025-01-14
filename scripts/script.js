@@ -1,64 +1,163 @@
 const root = document.documentElement;
 
-function getRandomColor() {
-    return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+// Change colors dynamically
+function setCssVariable(varName, value) {
+    root.style.setProperty(varName, value);
 }
 
 document.getElementById('backgroundColor').addEventListener('input', (e) => {
-    root.style.setProperty('--background-color', e.target.value);
+    setCssVariable('--background-color', e.target.value);
 });
 
 document.getElementById('textColor').addEventListener('input', (e) => {
-    root.style.setProperty('--text-color', e.target.value);
+    setCssVariable('--text-color', e.target.value);
 });
 
 document.getElementById('accentColor').addEventListener('input', (e) => {
-    root.style.setProperty('--accent-color', e.target.value);
+    setCssVariable('--accent-color', e.target.value);
 });
 
 document.getElementById('navbarColor').addEventListener('input', (e) => {
-    root.style.setProperty('--navbar-color', e.target.value);
+    setCssVariable('--navbar-color', e.target.value);
 });
 
 document.getElementById('buttonColor').addEventListener('input', (e) => {
-    root.style.setProperty('--button-color', e.target.value);
+    setCssVariable('--button-color', e.target.value);
 });
 
 document.getElementById('buttonTextColor').addEventListener('input', (e) => {
-    root.style.setProperty('--button-text-color', e.target.value);
+    setCssVariable('--button-text-color', e.target.value);
 });
 
 document.getElementById('fontFamily').addEventListener('change', (e) => {
-    root.style.setProperty('--font-family', e.target.value);
+    setCssVariable('--sample-font-family', e.target.value);
 });
 
-function copyToClipboard(property) {
-    const value = getComputedStyle(root).getPropertyValue(property).trim();
-    navigator.clipboard.writeText(value);
-    alert(`Copied ${property}: ${value}`);
+// Copy to clipboard functionality
+function copyToClipboard(value) {
+    navigator.clipboard.writeText(value).then(() => {
+        alert(`Copied: ${value}`);
+    }).catch((err) => {
+        console.error('Failed to copy: ', err);
+    });
 }
 
-function randomizeColor(property, elementId) {
-    const randomColor = getRandomColor();
-    root.style.setProperty(property, randomColor);
-    document.getElementById(elementId).value = randomColor;
+document.getElementById('copybackgroundColor').addEventListener('click', () => {
+    const value = document.getElementById('backgroundColor').value;
+    copyToClipboard(value);
+});
+
+document.getElementById('copytextColor').addEventListener('click', () => {
+    const value = document.getElementById('textColor').value;
+    copyToClipboard(value);
+});
+
+document.getElementById('copyaccentColor').addEventListener('click', () => {
+    const value = document.getElementById('accentColor').value;
+    copyToClipboard(value);
+});
+
+document.getElementById('copynavbarColor').addEventListener('click', () => {
+    const value = document.getElementById('navbarColor').value;
+    copyToClipboard(value);
+});
+
+document.getElementById('copybuttonColor').addEventListener('click', () => {
+    const value = document.getElementById('buttonColor').value;
+    copyToClipboard(value);
+});
+
+document.getElementById('copybuttonTextColor').addEventListener('click', () => {
+    const value = document.getElementById('buttonTextColor').value;
+    copyToClipboard(value);
+});
+
+// Randomize colors functionality
+function randomColor() {
+    return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
 }
+
+document.getElementById('randomizebackgroundColor').addEventListener('click', () => {
+    const randomValue = randomColor();
+    document.getElementById('backgroundColor').value = randomValue;
+    setCssVariable('--background-color', randomValue);
+});
+
+document.getElementById('randomizetextColor').addEventListener('click', () => {
+    const randomValue = randomColor();
+    document.getElementById('textColor').value = randomValue;
+    setCssVariable('--text-color', randomValue);
+});
+
+document.getElementById('randomizeaccentColor').addEventListener('click', () => {
+    const randomValue = randomColor();
+    document.getElementById('accentColor').value = randomValue;
+    setCssVariable('--accent-color', randomValue);
+});
+
+document.getElementById('randomizenavbarColor').addEventListener('click', () => {
+    const randomValue = randomColor();
+    document.getElementById('navbarColor').value = randomValue;
+    setCssVariable('--navbar-color', randomValue);
+});
+
+document.getElementById('randomizebuttonColor').addEventListener('click', () => {
+    const randomValue = randomColor();
+    document.getElementById('buttonColor').value = randomValue;
+    setCssVariable('--button-color', randomValue);
+});
+
+document.getElementById('randomizebuttonTextColor').addEventListener('click', () => {
+    const randomValue = randomColor();
+    document.getElementById('buttonTextColor').value = randomValue;
+    setCssVariable('--button-text-color', randomValue);
+});
 
 document.getElementById('randomizeAll').addEventListener('click', () => {
-    randomizeColor('--background-color', 'backgroundColor');
-    randomizeColor('--text-color', 'textColor');
-    randomizeColor('--accent-color', 'accentColor');
-    randomizeColor('--navbar-color', 'navbarColor');
-    randomizeColor('--button-color', 'buttonColor');
-    randomizeColor('--button-text-color', 'buttonTextColor');
+    const colors = {
+        '--background-color': randomColor(),
+        '--text-color': randomColor(),
+        '--accent-color': randomColor(),
+        '--navbar-color': randomColor(),
+        '--button-color': randomColor(),
+        '--button-text-color': randomColor(),
+    };
+    Object.entries(colors).forEach(([varName, value]) => {
+        setCssVariable(varName, value);
+    });
 });
 
-['backgroundColor', 'textColor', 'accentColor', 'navbarColor', 'buttonColor', 'buttonTextColor'].forEach(id => {
-    document.getElementById(`copy${id}`).addEventListener('click', () => {
-        copyToClipboard(`--${id.toLowerCase()}`);
-    });
+// Modal functionality
+const modal = document.getElementById('modal');
+const openModalButton = document.getElementById('openModal');
+const closeModalButton = document.getElementById('closeModal');
 
-    document.getElementById(`randomize${id}`).addEventListener('click', () => {
-        randomizeColor(`--${id.toLowerCase()}`, id);
-    });
+openModalButton.addEventListener('click', () => {
+    modal.style.display = 'flex';
+});
+
+closeModalButton.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+// Automatically go into fullscreen on page load
+document.getElementById('fullscreen').addEventListener('click', () => {
+    function launchIntoFullscreen(element) {
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        }
+    }
+    
+    launchIntoFullscreen(document.documentElement);
 });
