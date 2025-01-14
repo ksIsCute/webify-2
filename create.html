@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color and Font Preview</title>
+    <link rel="stylesheet" href="/css/create.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Customizer</h2>
+        <div class="editor-item">
+            <label>Background Color: <input type="color" id="backgroundColor" value="#ffffff"></label>
+            <button id="copybackgroundColor">Copy</button>
+            <button id="randomizebackgroundColor">Randomize</button>
+        </div>
+        <div class="editor-item">
+            <label>Text Color: <input type="color" id="textColor" value="#000000"></label>
+            <button id="copytextColor">Copy</button>
+            <button id="randomizetextColor">Randomize</button>
+        </div>
+        <div class="editor-item">
+            <label>Accent Color: <input type="color" id="accentColor" value="#007bff"></label>
+            <button id="copyaccentColor">Copy</button>
+            <button id="randomizeaccentColor">Randomize</button>
+        </div>
+        <div class="editor-item">
+            <label>Navbar Color: <input type="color" id="navbarColor" value="#343a40"></label>
+            <button id="copynavbarColor">Copy</button>
+            <button id="randomizenavbarColor">Randomize</button>
+        </div>
+        <div class="editor-item">
+            <label>Button Color: <input type="color" id="buttonColor" value="#007bff"></label>
+            <button id="copybuttonColor">Copy</button>
+            <button id="randomizebuttonColor">Randomize</button>
+        </div>
+        <div class="editor-item">
+            <label>Button Text Color: <input type="color" id="buttonTextColor" value="#ffffff"></label>
+            <button id="copybuttonTextColor">Copy</button>
+            <button id="randomizebuttonTextColor">Randomize</button>
+        </div>
+        <div class="editor-item">
+            <label>Font Family: 
+                <select id="fontFamily">
+                    <option value="Arial, sans-serif">Arial</option>
+                    <option value="'Courier New', monospace">Courier New</option>
+                    <option value="'Georgia', serif">Georgia</option>
+                    <option value="'Times New Roman', serif">Times New Roman</option>
+                    <option value="'Verdana', sans-serif">Verdana</option>
+                </select>
+            </label>
+        </div>
+        <button id="randomizeAll">Randomize All</button>
+    </div>
+
+    <div class="main-content">
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="sample">
+            <h1>Sample Area</h1>
+            <p>This is a preview of how your styles will look.</p>
+            <button class="button">Primary Button</button>
+            <button class="button">Secondary Button</button>
+            <a href="#" class="link">Sample Link</a>
+
+            <div class="modal" id="modal" style="display: none;">
+                <div class="modal-content">
+                    <h2>Modal Title</h2>
+                    <p>This is a modal. Use it for additional content or actions.</p>
+                    <button class="button" id="closeModal">Close</button>
+                </div>
+            </div>
+
+            <button class="button" id="openModal">Open Modal</button>
+        </div>
+    </div>
+
+    <script src="scripts/script.js"></script>
+</body>
+</html>
